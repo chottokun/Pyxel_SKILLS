@@ -12,6 +12,12 @@ instructions: |
       - `pyxel.run(self.update, self.draw)` の配置
       - 基本的な入力判定 (`pyxel.btnp`, `pyxel.btn`)
       - 便利な組み込み関数の活用提案（`pyxel.rndi`, `pyxel.noise`, `pyxel.clamp` 等）
+      - **[NEW 2.7.8]** `blt`, `bltm` での `rotate` (回転), `scale` (拡大縮小) の使用
+      - **[NEW 2.7.8]** `blt3d`, `bltm3d` による遠近感（Mode 7風）描画
+          - `blt3d(x, y, w, h, img, cam, rot, fov=60, colkey=None)`
+          - `bltm3d(x, y, w, h, tm, cam, rot, fov=60, colkey=None)`
+          - `cam=(x,y,z)`, `rot=(u,v,w)` のタプルを指定。
+  - **注意点**: Pyxel 2.x に `ellipse` (楕円) 関数は存在しない。影や丸い形状は `circ(x, y, r, col)` または `circb(x, y, r, col)` を使用する。
   - 画面サイズやパレット (16色) を考慮した設計。
 
 inputs:

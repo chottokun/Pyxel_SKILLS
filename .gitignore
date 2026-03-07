@@ -10,3 +10,4 @@ wheels/
 .venv
 
 .agents/skills/skill-creator
+pyxel_examples/

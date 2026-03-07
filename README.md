@@ -1,52 +1,68 @@
-# Pyxel Pattern - Agentic Development Suite
+# Pyxel スキル
 
-Pyxel 2.0+ に対応した **AI エージェント用開発スキルスイート** と、そのテストとして作った **ローグライクゲーム** のサンプルプロジェクトです。
+Pyxel 2.7.8+ に対応した **AI エージェント用開発スキルスイート** と、その成果物として、テスト用のゲームを作りました。
 
 ## 🌟 目的
-本プロジェクトは、Gemini CLI などの AI エージェントが Pyxel ゲームエンジンを最大限に活用するためのSKILLSを作成することを目的としました。
+本プロジェクトは、AI エージェントが Pyxel ゲームエンジンを最大限に活用するための「スキル」を定義することを試みました。
 
-単なるコードサンプルではなく、Pyxel の最新仕様（WASM対応、ネイティブ衝突判定、BGM自動生成など）を AI が正しく理解し、開発者に提供できるかもしれません。
+## 🎮 動作確認のために試作したゲーム  
+動作を確認するためでゲームとしては骨組みだけです。
 
-## 🛠️ Pyxel Development Suite (Agent Skills)
-`.agents/skills/Pyxel_dev_suite` に格納されている 8 つのサブスキルが、開発の全工程をサポートします。
 
-1.  **Core**: アプリ基盤と最新の数学・乱数関数の活用。
-2.  **Sprite**: コードベースのスプライト定義と回転・拡縮描画。
-3.  **Animation**: 状態遷移（待機・走り等）を管理する Animator クラス。
-4.  **Map Processing**: Tilemap への直接操作とカメラスクロール。
-5.  **Collision**: ネイティブ `tilemaps[].collide` を用いた高速衝突判定。
-6.  **Audio**: `gen_bgm` によるプロシージャル BGM 生成と SE 再生。
-7.  **Web Export**: WASM (Web) パッケージ化と HTML 出力の自動化。
-8.  **Skill Refiner**: GitHub の最新ソースを解析し、スキル定義自体を常に最新化するメタスキル。
+### 1. Pyxel F-ZERO みたいなゲーム (Racegame)
+Mode 7 風の 3D 描画を活用した、疾走感あふれる高速レースゲームです。
+Pyxel 2.7.8の新機能を使いました。
 
-## 🎮 応用例: 探索者と闇の迷宮 (Roguelike Gold)
-これらのスキルを組み合わせて作成された、本格的なターン制ローグライクゲームです。
+![Racegame Screenshot](docs/screenshots/racegame.png)
+*(Mode 7 3D レンダリングとドリフト走行の様子)*
+
+- **特徴**:
+    - **Mode 7 3D レンダリング**: `bltm3d` を駆使した奥行きのある擬似 3D コース。
+    - **ドリフト物理**: 慣性とグリップ力を分離し、旋回時の「滑り」を再現。
+    - **リアルタイムミニマップ**: コースの全貌と自車位置を正確に投影。
+    - **本格サウンド**: ベース、メロディ、リズムの 3 チャンネル構成 BGM。
+- **操作方法**:
+    - `↑`: 加速 / `↓`: ブレーキ・後退
+    - `←` `→`: 旋回（高速時はドリフトが発生）
+    - `R`: スタート地点へリセット（スタック救済）
+    - `ESC`: 終了
+- **実行方法**:
+    ```bash
+    uv run python src/racegame/main.py
+    ```
+
+---
+
+### 2. Roguelikeなゲーム
+ターン制ローグライクゲームです。
 
 - **特徴**:
     - **視界制限 (Fog of War)**: プレイヤーの周囲数マスしか見えない緊張感。
-    - **ネイティブ衝突判定**: 快適で正確な移動ロジック。
-    - **自動生成BGM**: シーン（タイトル・プレイ・死亡）に応じた動的な音楽。
-    - **UI/UX**: HPバー、アイコン、日本語メッセージ、被弾時のフラッシュ演出。
+    - **ネイティブ衝突判定**: `tilemaps[].collide` を用いた正確な移動。
+    - **自動生成BGM**: シーンに応じた動的な音楽。
+- **実行方法**:
+    ```bash
+    uv run python src/roguelike/main.py
+    ```
 
-### 🚀 実行方法 (Local)
-本プロジェクトは `uv` を使用して依存関係を管理しています。
+## 🌐 Web プレビュー / 書き出し
+本プロジェクトは WebAssembly (WASM) への書き出しをサポートしており、`dist/` ディレクトリにビルド済みの HTML が整理されています。
 
-```bash
-# 依存関係のインストールと実行
-uv run src/roguelike/main.py
-```
+- **レースゲーム (Web版)**: `dist/racegame/index.html` をブラウザで開く。
 
-### 🌐 Web プレビュー / 書き出し
-VS Code の Pyxel 拡張機能を使用してブラウザで即座に実行できるほか、以下のコマンドで配布用 HTML を生成できます。
+## 🛠️ Pyxel Development Suite (Agent Skills)
+`.agents/skills/Pyxel_dev_suite` に、AI が Pyxel 2.7.8 の最新機能を正しく扱うための知見が格納されています。
 
-```bash
-uv run pyxel app2html src/roguelike/main.py
-```
+1.  **Core**: 2.7.8 以降の数学・乱数関数の活用。
+2.  **Audio**: `sounds[]`/`musics[]` 配列アクセスと `gen_bgm` の最新知見。
+3.  **Racing**: `bltm3d` 制御、ドリフト物理、ミニマップ投影ロジック。
+4.  **Web Export**: 相対インポートを排除した Web (Pyodide) 互換パッケージング。
 
 ## 📂 ディレクトリ構成
-- `.agents/skills/Pyxel_dev_suite/`: AI エージェント用スキル定義
-- `src/roguelike/`: 応用例としてのゲームソースコード
-- `pyproject.toml`: `uv` 用のプロジェクト構成
+- `src/racegame/`: レースゲーム・ソースコード
+- `src/roguelike/`: ローグライク・ソースコード
+- `dist/racegame/`: レースゲーム・Web配布用ビルド
+- `.agents/skills/`: AI エージェント用スキル定義
 
 ## 📜 ライセンス
-それぞれのライブラリのライセンスに従います。その他は、MIT Licenseです。
+MIT Licenseです。ただし、ライブラリは個別のライセンスに従ってください。
