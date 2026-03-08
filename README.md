@@ -1,6 +1,6 @@
 # Pyxel スキル
 
-Pyxel 2.7.8+ に対応した エージェント用開発SKILL を作成してみました。ゲームは基本的な機能のテストのためです。
+Pyxel 2.7.9+ に対応した エージェント用開発SKILL を作成してみました。ゲームは基本的な機能のテストのためです。
 
 ## 🌟 目的
 本プロジェクトは、AI エージェントが Pyxel ゲームエンジンを最大限に活用するための「スキル」を定義することを試みました。
@@ -11,7 +11,7 @@ Pyxel 2.7.8+ に対応した エージェント用開発SKILL を作成してみ
 
 ### 1. Pyxel F-ZERO みたいなゲーム (Racegame)
 Mode 7 風の 3D 描画を活用した、疾走感あふれる高速レースゲームです。
-Pyxel 2.7.8の新機能を使いました。
+Pyxel 2.7.9の新機能を使いました。
 
 ![Racegame Screenshot](docs/screenshots/racegame.png)
 *(Mode 7 3D レンダリングとドリフト走行の様子)*
@@ -51,7 +51,7 @@ Pyxel 2.7.8の新機能を使いました。
 - **レースゲーム (Web版)**: `dist/racegame/index.html` をブラウザで開く。
 
 ## 🛠️ Pyxel Development Suite (Agent Skills)
-`.agents/skills/Pyxel_dev_suite` に、AI が Pyxel 2.7.8 の最新機能を正しく扱うための知見が格納されています。
+`.agents/skills/Pyxel_dev_suite` に、AI が Pyxel 2.7.9 の最新機能を正しく扱うための知見が格納されています。
 
 1.  **Core**: 2.7.8 以降の数学・乱数関数の活用。
 2.  **Audio**: `sounds[]`/`musics[]` 配列アクセスと `gen_bgm` の最新知見。
@@ -63,6 +63,16 @@ Pyxel 2.7.8の新機能を使いました。
 - `src/roguelike/`: ローグライク・ソースコード
 - `dist/racegame/`: レースゲーム・Web配布用ビルド
 - `.agents/skills/`: AI エージェント用スキル定義
+
+## 🕒 更新履歴 (Change History)
+- **2026-03-08 (v2.7.9)**:
+    - `blt3d`/`bltm3d` の引数名変更 (`cam` -> `pos`) に対応。
+    - 3D 座標系の回転軸調整（2D 画面との一致）への適合。
+    - 各スキルドキュメントに詳細な履歴セクションを追加。
+- **2026-03-07 (v2.7.8)**:
+    - Pyxel 2.7.8 へのアップデート。
+    - `blt3d`/`bltm3d` による Extreme Mode 7 描画の導入。
+    - レースゲームデモの公開。
 
 ## 📜 ライセンス
 MIT Licenseです。ただし、ライブラリは個別のライセンスに従ってください。

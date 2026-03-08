@@ -7,7 +7,7 @@ description: >
 instructions: |
   - ユーザーが 3D レースゲームや Mode 7 風の描画を求めた場合に発火する。
   - 以下の要素を自動化・標準化する：
-      - **3D レンダリング**: `pyxel.bltm3d` のカメラ制御（追従カメラ、バンク/傾き）。
+      - **3D レンダリング**: `pyxel.bltm3d` のカメラ制御（追従カメラ、バンク/傾き）。`cam` 引数は `pos` に名称変更されました。
       - **物理演算**: 加速、摩擦、壁の跳ね返り、ドリフト感、リバース機能。
       - **コース生成**: `points` 配列から線形補間（またはスプライン）で道路を描画する `setup_course` メソッド。
       - **高速演出**: スピードラインの描画、スターフィールド（星空）の生成。
@@ -18,9 +18,9 @@ instructions: |
 patterns:
   camera_logic: |
     vx, vy = pyxel.cos(self.angle), pyxel.sin(self.angle)
-    cam = (self.x - vx * self.cam_dist, self.y - vy * self.cam_dist, self.cam_height)
+    pos = (self.x - vx * self.cam_dist, self.y - vy * self.cam_dist, self.cam_height)
     rot = (self.pitch, self.angle, self.tilt * 10)
-    pyxel.bltm3d(0, 0, w, h, tm, cam, rot, fov=80)
+    pyxel.bltm3d(0, 0, w, h, tm, pos, rot, fov=80)
 
   track_gen_spline: |
     # 長方形ベースのループ生成
@@ -131,3 +131,7 @@ patterns:
 resources:
   - scripts/collision.py
   - scripts/track_gen.py
+
+## Change History
+- **2.7.9**: `bltm3d` の引数名変更（`cam` -> `pos`）に対応。3D 座標系の仕様変更を考慮したカメラ制御に更新。
+- **2.7.8**: `bltm3d` を活用した Extreme Mode 7 描画パターンを追加。

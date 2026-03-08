@@ -7,7 +7,7 @@ from player import Player
 
 class App:
     def __init__(self):
-        pyxel.init(SCREEN_WIDTH, SCREEN_HEIGHT, title="Pyxel F-ZERO 2.7.8")
+        pyxel.init(SCREEN_WIDTH, SCREEN_HEIGHT, title="Pyxel F-ZERO 2.7.9")
         
         # Audio & Assets
         Audio.setup()
@@ -115,9 +115,9 @@ class App:
 
         # Mode 7 Render (bltm3d)
         vx, vy = pyxel.cos(self.player.angle), pyxel.sin(self.player.angle)
-        cam = (self.player.x - vx * self.cam_dist, self.player.y - vy * self.cam_dist, self.cam_height)
+        pos = (self.player.x - vx * self.cam_dist, self.player.y - vy * self.cam_dist, self.cam_height)
         rot = (self.pitch, self.player.angle, self.player.tilt * 10)
-        pyxel.bltm3d(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, cam, rot, fov=self.fov)
+        pyxel.bltm3d(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, pos, rot, fov=self.fov)
         
         # Render Particles using blt3d (Square particles as 3D effect)
         for p in self.particles:
